@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Iris Predictor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    .card { max-width: 540px; padding: 1.25rem; border: 1px solid #e5e7eb; border-radius: 12px; }
+    .row { display: grid; gap: 0.75rem; grid-template-columns: 1fr 1fr; }
+    label { font-size: 0.9rem; color: #111827; }
+    input { width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 8px; }
+    button { margin-top: 1rem; padding: 0.6rem 0.9rem; border: 0; border-radius: 8px; background: #111827; color: white; cursor: pointer; }
+    .result { margin-top: 1rem; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 0.75rem; }
+    .muted { color: #6b7280; }
+  </style>
+</head>
+<body>
+  <h1>Iris Predictor</h1>
+  <p class="muted">Enter Iris flower measurements to get a prediction.</p>
+
+  <div class="card">
+    <form action="/predict" method="post">
+      <div class="row">
+        <div>
+          <label for="sepal_length">Sepal length (cm)</label>
+          <input type="text" id="sepal_length" name="sepal_length" value="{{ form_values.sepal_length if form_values else '' }}">
+        </div>
+        <div>
+          <label for="sepal_width">Sepal width (cm)</label>
+          <input type="text" id="sepal_width" name="sepal_width" value="{{ form_values.sepal_width if form_values else '' }}">
+        </div>
+        <div>
+          <label for="petal_length">Petal length (cm)</label>
+          <input type="text" id="petal_length" name="petal_length" value="{{ form_values.petal_length if form_values else '' }}">
+        </div>
+        <div>
+          <label for="petal_width">Petal width (cm)</label>
+          <input type="text" id="petal_width" name="petal_width" value="{{ form_values.petal_width if form_values else '' }}">
+        </div>
+      </div>
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if result %}
+      <div class="result">
+        {% if result.error %}
+          <div style="color: red;">Error: {{ result.error }}</div>
+        {% else %}
+          <strong>Predicted class:</strong> {{ result.class_name }}<br>
+          <div class="muted">
+            Probabilities:
+            <ul>
+            {% for name, p in result.probabilities.items() %}
+              <li>{{ name }} : {{ "%.3f"|format(p) }}</li>
+            {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <p class="muted" style="margin-top:1rem;">
+    API available at <code>POST /api/predict</code>
+  </p>
+</body>
+</html>
