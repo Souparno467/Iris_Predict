@@ -28,3 +28,10 @@ STREAMLIT APPLICTION
 
 
 <img width="1709" height="742" alt="Screenshot 2025-09-27 175750" src="https://github.com/user-attachments/assets/e4ad3ee3-04da-4535-a724-e8c4a5d513bb" />
+
+
+
+
+<img width="714" height="725" alt="Screenshot 2025-09-27 175725" src="https://github.com/user-attachments/assets/6151dba8-0d24-4ce6-b473-4239b2dd3dee" />
+
+
